@@ -68,6 +68,14 @@ Uses COSINE similarity for matching
 
 ---
 
+## 📁 Folder Structure
+<pre> 
+  .
+
+</pre>
+  
+---
+
 ## 🚀 Features
 
 - Sentence- and paragraph-aware chunking with overlap  
