@@ -15,7 +15,7 @@ The project is divided into **four stages**:
 ### 1. Document Processing & Chunking
 
 We prepare the input data by:
-
+📄 **Script:** `chunking_and_embeddings.py`
 - Loading `.docx` files from a folder
 - Merging all text content into a single `.parquet` file
 - Splitting long texts into smaller overlapping chunks  
@@ -28,8 +28,7 @@ We prepare the input data by:
 
 ### 2. Embedding Generation
 
-📄 **Script:** `embeddings_and_database.py`
-
+📄 **Script:** `chunking_and_embeddings.py`
 - A base class `GetEmbsNPYBase` handles chunking and text preparation
 - A subclass `GetEmbsNPY_Gigachat` initializes the GigaChat embedder and builds embeddings
 - Alternative subclasses can be added for Hugging Face or other models
@@ -43,14 +42,29 @@ We prepare the input data by:
 
 ### 3. Upload to Qdrant Vector Database
 
-📄 **Script:** `embeddings_and_database.py`  
+📄 **Script:** `qdrant_database.py`  
 🐳 **Requirement:** Qdrant must be running locally via Docker
 
 **Docker Setup:**
 ```bash
 docker pull qdrant/qdrant
 docker run -p 6333:6333 -v $(pwd):/qdrant/storage qdrant/qdrant
+```
+Initializes the collection if not yet present
+Resumes indexing from the last record if it already exists
+Uses COSINE similarity for matching
 
+📁 Output: A Qdrant collection populated with chunk embeddings and metadata
+
+---
+
+### 4. Query Answering with Retrieval + LLM
+📄 Script: retriever.py
+- `RetrievalQA` retrieves relevant documents for multiple reformulated versions of the user query
+- `StuffDocumentsChain` formats the documents and queries into a prompt and sends it to the LLM
+- `Talk2DB` orchestrates the full process, optionally using conversation history and returning the final answer
+
+💡 Supports multi-turn dialogue and modular prompt handling.
 
 ---
 
