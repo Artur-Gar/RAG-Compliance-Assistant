@@ -71,7 +71,22 @@ Uses COSINE similarity for matching
 ## 📁 Folder Structure
 <pre> 
   .
-
+├── configs/ 
+│ └── config.yml                       # Configuration file for model and database parameters 
+├── custom_modules/ 
+│ ├── init.py 
+│ ├── chunking_and_embeddings.py       # Chunking documents and generating embeddings 
+│ ├── qdrant_database.py               # Uploading and managing vectors in Qdrant 
+│ └── retriever.py                     # Query handling and langchain LLM prompt engineering 
+├── data/ 
+│ ├── chunks/                          # Individual chunk .parquet files 
+│ ├── embs/                            # Individual .npy files with embeddings 
+│ ├── chunks.parquet                   # Combined chunk data 
+│ ├── embs.npy                         # Combined embeddings 
+│ └── texts.parquet                    # Original processed text data 
+├── laws/                              # Raw .docx legal documents 
+├── README.md                          # Project overview and documentation 
+└──  legal_RAG_pipeline.ipynb          # Main notebook to run the end-to-end pipeline
 </pre>
   
 ---
